@@ -1,5 +1,5 @@
 node_modules
 .vscode
 db.sqlite
-
+public/images
 !public/images/.gitkeep
