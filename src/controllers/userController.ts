@@ -1,16 +1,8 @@
 import { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import { TypeORMError } from "typeorm";
 import { User } from "../models/User";
 import { UserService } from "../services/userService";
 
-/*
-criar
-obter
-atualizar - nome, email, senha, foto, bio
-apagar
-*/
 export class UserController {
   static async insert(req: Request, res: Response) {
     try {
@@ -23,12 +15,11 @@ export class UserController {
       if (password != c_password) {
         return res.status(400).json({ message: "As senhas não conferem" });
       }
-      
+
       const user = new User();
       user.email = email;
       user.password = password;
       user.name = name;
-     
 
       const newUser = await UserService.insert(user);
 
@@ -49,7 +40,7 @@ export class UserController {
       if (!id) {
         return res.status(400).json({ message: "Id não fornecido" });
       }
-      const filename = req.file?.filename
+      const filename = req.file?.filename;
       const user = new User();
       if (name) {
         user.name = name;
@@ -64,7 +55,7 @@ export class UserController {
         user.phoneNumber = phoneNumber;
       }
       if (filename) {
-         user.profilePhoto = filename;
+        user.profilePhoto = filename;
       }
       await UserService.update(Number(id), user);
 

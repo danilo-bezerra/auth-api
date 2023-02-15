@@ -4,5 +4,5 @@ db.sqlite
 public/images
 !public/images/.gitkeep
 
-
+.env
 

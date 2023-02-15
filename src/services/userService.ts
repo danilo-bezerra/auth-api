@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import { User } from "../models/User";
 import { userRepository } from "../repositories/userRepository";
+import { FindOptionsWhere } from "typeorm";
 
 /*
 criar
@@ -24,10 +23,30 @@ export class UserService {
     await userRepository.delete(id);
   }
 
+  static async findWhere(where: FindOptionsWhere<User>) {
+    return await userRepository.findOne({
+      where,
+    });
+  }
+
   static async findById(id: number) {
+    if (!id) {
+      return null;
+    }
     return await userRepository.findOne({
       where: {
         id,
+      },
+    });
+  }
+
+  static async findByEmail(email: string) {
+    if (!email) {
+      return null;
+    }
+    return await userRepository.findOne({
+      where: {
+        email,
       },
     });
   }
